@@ -1,42 +1,198 @@
-#root {
-  max-width: 1280px;
+/* Contenedor principal */
+.App {
+  text-align: center; /* Alinear el contenido al centro */
+  color: #fff; /* Establecer el color de texto a blanco */
+  display: flex; /* Usar flexbox para la distribución */
+  flex-direction: column; /* Distribuir en columna */
+  align-items: center; /* Alinear verticalmente */
+}
+/*---------------------------------------------------------------------------------------------------------------------------------------------*/
+/* Header principal */
+.header {
+  padding: 20px 0; /* Espaciado interno */
+  display: flex; /* Usar flexbox para la distribución */
+  align-items: center; /* Alinear verticalmente */
+  color: #fff; /* Color de texto para el header */
+  padding-top: 100px; /* Ajusta el espacio para que no se superponga con el nav y el logo */
+}
+.img-size{ /*img1*/
+  width: 28em; /* Ancho deseado */
+  height: auto;
+}
+/*---------------------------------------------------------------------------------------------------------------------------------------------*/
+.header-content {
+  flex-direction: column;
+}
+/* Contenedor de información */
+.header-info {
+  display: flex; /* Usar flexbox para la distribución */
+  flex-direction: column; /* Distribuir en columna */
+  align-items: flex-start; /* Alinear a la izquierda */
+  margin-right: 10em; /* Margen derecho */
+}
+.header-info h1 {
+  font-size: 90px; /* Tamaño de la fuente del título */
+  margin-bottom: 15px; /* Margen inferior del título */
+}
+.header-info p {
+  font-size: 25px; /* Tamaño de la fuente del subtítulo */
+  line-height: 1.6; /* Altura de línea del subtítulo */
+  max-width: 500px; /* Ancho máximo del subtítulo */
+  text-align: left; /* Alinear texto a la izquierda */
+}
+/* Botón de registro */
+.header-registro {
+  margin-top: 20px; /* Margen superior */
+  display: flex;
+  justify-content: flex-start; /* Alinea el contenido a la izquierda */
+  margin-right: 10px; /* Ajusta el margen derecho */
+}
+/*---------------------------------------------------------------------------------------------------------------------------------------------*/
+.btn {
+  display: inline-block;
+  background-color: rgba(170, 177, 255, 0.3);
+  border: 1px solid beige;
+  margin: 35px 10px 0px 0px;
+  padding: 10px 20px;
+  color: beige;
+  text-decoration: none;
+  border-radius: 25px; /* Agrega borde redondeado */
+  margin-top: 1px;
+}
+.btn:hover{
+  background-color: mediumpurple;
+  color: beige;
+}
+/*_________________________________HELP________________________________*/
+.help-container{
+  padding: 80px 0px;
+  text-align: center;
+  color: beige;
+}
+.help-content{
+  max-width: 800px;
   margin: 0 auto;
-  padding: 2rem;
+}
+.help-content H2{
+  font-size: 40px; /* Cambia el tamaño del texto */
+  margin-bottom: 20px;
+}
+.help-content P{
+  font-size: 22px; /* Cambia el tamaño del texto */
+  line-height: 1.6;
+}
+/*________________________________________SERVICES_________________________________________*/
+.services-container{
+  padding: 80px 0px;
+  text-align: center;
+  color: beige;
+}
+.service-content{
+  display: flex;
+  flex-wrap: nowrap; /* Evita que los servicios se envuelvan */
+  justify-content: center;
+  gap: 10px;
+}
+.services {
+  width: 300px; /* Ancho deseado para cada servicio */
+  padding: 25px;
+  margin: 0px 10px;
+  box-shadow: 0px 0px 20px rgba(135, 141, 214, 0.3);
+}
+/*________________________________________INFORMATION_________________________________________*/
+.info-container{
+  padding: 80px 0px;
+  text-align: center;
+  margin: 30px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 30px;
+  border-radius: 10px;
+}
+.info-container h2{
+  font-size: 60px; /* Cambia el tamaño del texto */
+  margin-bottom: 30px;
+}
+.information-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.info-1, .info-2{
+  text-align: left;
+  margin-left: 100px;
+  max-width: 550px; /* Aumenta el ancho máximo del texto */
+  margin-bottom: 30px; /* Espacio entre cada componente */
+}
+
+/* Alineación de los componentes según el índice */
+.information-list .info-1:nth-child(odd),
+.information-list .info-2:nth-child(even) {
+  margin-right: auto; /* Alinea a la izquierda */
+}
+.information-list .info-1:nth-child(even),
+.information-list .info-2:nth-child(odd) {
+  margin-left: auto; /* Alinea a la derecha */
+}
+
+.info-1, .info-2 h3{
+  font-size: 30px;
+  margin-bottom: 20px;
   text-align: center;
 }
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.info-1, .info-2 p{
+  font-size: 22px; /* Cambia el tamaño del texto */
+  margin-bottom: 25px;
+  line-height: 1.5;/* Ajusta el espacio entre líneas del texto */
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+/* Agrega estilos para la animación de hover */
+.Information:hover {
+  box-shadow: 0px 0px 30px rgba(135, 141, 214, 0.6);
+  transform: translateY(-5px);
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/*________________________________________FOOTER_________________________________________*/
+.contacto-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.contacto-content {
+  display: flex;
+  flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+  justify-content: center; /* Centra los elementos horizontalmente */
+  gap: 20px; /* Añade espacio entre los elementos */
+  max-width: 800px; /* Limita el ancho máximo para evitar que se extiendan demasiado */
+  margin-bottom: 20px;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.contacto , .ubicacion{
+  flex: 1; /* Distribuye el espacio disponible de manera uniforme */
+  padding: 25px; /* Reduce el padding para que se vean más compactos */
+  text-align: center;
+  box-shadow: 0px 0px 20px rgba(135, 141, 214, 0.3);
+  margin: 0 10px; /* Reduce el margen horizontal */
 }
-
-.card {
-  padding: 2em;
+.contacto h2, .ubicacion h2 {
+  font-size: 24px; /* Ajusta el tamaño del título */
+  margin-bottom: 5px; /* Reduce el espacio inferior entre el título y el texto */
+  color: black;
 }
-
-.read-the-docs {
-  color: #888;
+.contacto p, .ubicacion p {
+  font-size: 20px; /* Ajusta el tamaño del texto */
+  color: beige;
+  line-height: 1.0; /* Aumenta el espacio entre líneas */
+}
+.contacto:hover, .ubicacion:hover {
+  box-shadow: 0px 0px 30px rgba(135, 141, 214, 0.6);
+  transform: translateY(-5px);
+}
+.pieDEpagina{
+  display: flex;
+  justify-content: center; /* Centra el contenido horizontalmente */
+  align-items: center; /* Centra el contenido verticalmente */
+  margin-top: 20px;
+}
+.pieDEpagina h3{
+  font-size: 25px;
+  margin: 20px; /* Añade un margen interno para separar del borde */
 }

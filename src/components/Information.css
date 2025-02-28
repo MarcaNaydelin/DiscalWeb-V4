@@ -1,0 +1,57 @@
+/* Information.css */
+.Information {
+    padding: 25px;
+    margin: 0px 10px;
+    box-shadow: 0px 0px 20px rgba(135, 141, 214, 0.3);
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 25px; /* Agrega margen inferior */
+  }
+  
+  .info-content {
+    display: flex;
+    align-items: center;
+  }
+  
+  .info-content img {
+    width: 25%; /* Hacemos que la imagen ocupe todo el ancho del contenedor */
+    height: auto;
+    margin-right: 50px; /* Espacio entre la imagen y el texto */
+  }
+  
+  .info-text {
+    text-align: left; /* Alinear el texto a la izquierda */
+  }
+  
+  .info-text h3 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .info-text p {
+    font-size: 24px;
+    color: black;
+  }
+  .Information:hover {
+    box-shadow: 0px 0px 30px rgba(135, 141, 214, 0.6);
+    transform: translateY(-5px);
+  }
+  .btn{
+    display: inline-block;
+    background-color: rgba(170, 177, 255, 0.3);
+    border: 1px solid beige;
+    margin-top: 15px; /* Ajusta el margen superior del botón */
+    margin-bottom: 20px; /* Ajusta el margen inferior del botón */
+    padding: 15px 25px;
+    color: beige;
+    border-radius: 25px;
+    text-decoration: none;
+}
+.btn:hover{
+    background-color: mediumpurple;
+    color: beige;
+}
