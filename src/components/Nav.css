@@ -1,0 +1,108 @@
+/* Contenedor del logo */
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    width: 80px;
+    height: auto;
+}
+/* Estilos para el contenedor principal del nav */
+.nav-container {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    justify-content: space-between;
+    padding: 10px 20px;
+    z-index: 1000; /* Asegura que esté encima del header */
+  }
+/* Estilos para la barra de navegación */
+/*nav barra de navegación*/
+.navbar {
+    display: flex;
+    /* Usar flexbox para la distribución */
+    align-items: center;
+}
+
+/* Listado de elementos del menú */
+.navbar ul {
+    list-style: none;
+    /* Elimina los puntos de la lista */
+    margin: 0;
+    /* Elimina el margen */
+    padding: 0;
+    /* Elimina el relleno */
+    display: flex;
+    /* Utiliza flexbox para la distribución */
+}
+
+/* Estilos para los elementos del menú */
+.navbar ul li {
+    margin-right: 20px;
+    /* Margen derecho entre elementos */
+    position: relative;
+    /* Posición relativa para el efecto de la línea */
+    float: left;
+    /* Flotar a la izquierda */
+    list-style-type: none;
+    /* Eliminar puntos de lista */
+    padding: 10px 15px;
+    /* Agregar espacio interno a los elementos */
+}
+
+/* Línea después de los elementos del menú al pasar el mouse */
+.navbar ul li::after {
+    /* Estilos de la línea */
+    content: '';
+    /* Contenido vacío */
+    position: absolute;
+    /* Posición absoluta */
+    width: 100%;
+    /* Ancho completo */
+    height: 2px;
+    /* Altura */
+    bottom: 0;
+    /* En la parte inferior */
+    left: 0;
+    /* A la izquierda */
+    background-color: #024BCC;
+    /* Color de fondo */
+    transform: scaleX(0);
+    /* Escala en X a cero (inicialmente no visible) */
+    transition: transform 0.3s;
+    /* Transición suave */
+}
+
+/* Línea visible al pasar el mouse */
+.navbar ul li:hover::after {
+    /* Estilos de la línea al pasar el mouse */
+    transform: scaleX(1);
+    /* Escala en X a uno (visible) */
+}
+
+/* Estilos para los enlaces del menú */
+.navbar ul li a {
+    /* Estilos de los enlaces del menú */
+    font-size: 30px;
+    /* Tamaño de la fuente */
+    padding: 20px;
+    /* Espaciado interno */
+    color: beige;
+    /* Color del texto */
+    display: block;
+    /* Mostrar como bloque */
+    transition: color 0.3s;
+    /* Transición suave del color */
+    text-decoration: none;
+    /* Elimina el subrayado de los enlaces */
+}
+
+/* Estilos para los enlaces del menú al pasar el mouse */
+.navbar ul li a:hover {
+    color: #024BCC;
+    /* Cambia el color del texto al pasar el mouse */
+} 
