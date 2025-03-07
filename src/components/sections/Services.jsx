@@ -1,9 +1,9 @@
-import React from 'react'
-import './Services.css'
+import React from 'react';
+import './Services.css';
 
 function Services({ image, title, description }) {
   return (
-    <div className='service-card'>
+    <div className='service-card hidden'>
       <div className="service-image-container">
         <img src={image} alt={`${title} ilustración`} />
       </div>
@@ -15,5 +15,4 @@ function Services({ image, title, description }) {
   );
 }
 
-export default Services
-
+export default Services;
