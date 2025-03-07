@@ -1,0 +1,141 @@
+.about-section {
+    background: rgba(80, 33, 173, 0.1);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .about-section::before {
+    content: '';
+    position: absolute;
+    top: -150px;
+    right: -150px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: rgba(208, 84, 113, 0.2);
+    z-index: 0;
+  }
+  
+  .about-section::after {
+    content: '';
+    position: absolute;
+    bottom: -150px;
+    left: -150px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: rgba(218, 166, 87, 0.2);
+    z-index: 0;
+  }
+  
+  .about-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+  }
+  
+  .about-text {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .about-text p {
+    font-size: 18px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    color: beige;
+  }
+  
+  .about-features {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+  }
+  
+  .feature {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    flex: 1;
+    min-width: 250px;
+    max-width: 350px;
+    transition: all 0.3s ease;
+  }
+  
+  .feature:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+  }
+  
+  .feature-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: rgba(218, 166, 87, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+  }
+  
+  .feature-icon i {
+    font-size: 30px;
+    color: #DAA657;
+  }
+  
+  .feature h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: beige;
+  }
+  
+  .feature p {
+    font-size: 16px;
+    color: beige;
+    line-height: 1.6;
+  }
+  
+  /* Animaciones */
+  .about-content.show {
+    animation: fadeInUp 1s ease forwards;
+  }
+  
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Responsividad */
+  @media (max-width: 992px) {
+    .about-text p {
+      font-size: 16px;
+    }
+    
+    .feature {
+      padding: 25px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .about-features {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .feature {
+      min-width: 100%;
+    }
+  }
