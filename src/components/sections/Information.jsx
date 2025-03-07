@@ -1,11 +1,13 @@
 import React from 'react';
 import './Information.css';
 
-function Information({ image, title, description }) {
+function Information({ image, title, description, className }) {
   return (
-    <div className='Information'>
+    <div className={`info-card ${className}`}>
       <div className="info-content">
-        <img src={image} alt="info-img" />
+        <div className="info-image">
+          <img src={image} alt={`${title} ilustración`} />
+        </div>
         <div className="info-text">
           <h3>{title}</h3>
           <p>{description}</p>

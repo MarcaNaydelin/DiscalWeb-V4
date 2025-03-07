@@ -1,16 +1,21 @@
 import React from "react";
 import "./App.css";
+
+// Imágenes
 import img1 from "./assets/images/img1.png";
-import Nav from "./components/layout/Nav";
-import Services from "./components/sections/Services";
 import habilidad from "./assets/images/habilidad.png";
 import confianza from "./assets/images/confianza.png";
 import motivacion from "./assets/images/motivacion.png";
-import Information from "./components/sections/Information";
 import discalculia from "./assets/images/discalculia.png";
 import Causas from "./assets/images/causa,png.jpg";
 import Sintomas from "./assets/images/sintomas.png";
 import Tratar from "./assets/images/tratar.png";
+
+// Componentes
+import Nav from "./components/layout/Nav";
+import Footer from "./components/layout/Footer";
+import Services from "./components/sections/Services";
+import Information from "./components/sections/Information";
 
 function App() {
   return (
