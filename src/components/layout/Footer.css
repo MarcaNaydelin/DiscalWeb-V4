@@ -1,0 +1,137 @@
+footer {
+    background: rgba(80, 33, 173, 0.6);
+    backdrop-filter: blur(10px);
+    padding: 60px 0 20px;
+    margin-top: 80px;
+    width: 100%;
+  }
+  
+  .footer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 50px;
+    width: 100%;
+    margin-bottom: 40px;
+  }
+  
+  .contacto, .ubicacion {
+    flex: 1;
+    min-width: 300px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .contacto h2, .ubicacion h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #DAA657;
+    position: relative;
+    padding-bottom: 10px;
+  }
+  
+  .contacto h2:after, .ubicacion h2:after {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 3px;
+    background: #DAA657;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .contacto p, .ubicacion p {
+    font-size: 16px;
+    color: beige;
+    line-height: 1.7;
+    margin-bottom: 10px;
+  }
+  
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  
+  .social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: beige;
+    font-size: 18px;
+    transition: all 0.3s ease;
+  }
+  
+  .social-links a:hover {
+    background: #DAA657;
+    transform: translateY(-3px);
+  }
+  
+  .ubicacion .btn {
+    margin-top: 20px;
+    align-self: center;
+  }
+  
+  .contacto:hover, .ubicacion:hover {
+    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+  }
+  
+  .footer-bottom {
+    width: 100%;
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .footer-bottom h3 {
+    font-size: 16px;
+    color: beige;
+    font-weight: 400;
+  }
+  
+  @media (max-width: 768px) {
+    .footer-content {
+      flex-direction: column;
+      gap: 30px;
+    }
+    
+    .contacto, .ubicacion {
+      min-width: 100%;
+      padding: 25px;
+    }
+    
+    .contacto h2, .ubicacion h2 {
+      font-size: 24px;
+    }
+    
+    .contacto p, .ubicacion p {
+      font-size: 15px;
+    }
+    
+    .footer-bottom h3 {
+      font-size: 14px;
+    }
+  }
