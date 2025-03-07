@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Nav.css'
-import logo from '../assets/logo.png'; // Importa las imágenes
+import logo from '../../assets/images/logo.png'; // Importa las imágenes
 
 function Nav() {
   const [scrolled, setScrolled] = useState(false);
