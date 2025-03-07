@@ -1,16 +1,16 @@
 import React from "react";
 import "./App.css";
-import img1 from "./assets/img1.png";
+import img1 from "./assets/images/img1.png";
 import Nav from "./components/Nav";
 import Services from "./components/Services";
-import habilidad from "./assets/habilidad.png";
-import confianza from "./assets/confianza.png";
-import motivacion from "./assets/motivacion.png";
+import habilidad from "./assets/images/habilidad.png";
+import confianza from "./assets/images/confianza.png";
+import motivacion from "./assets/images/motivacion.png";
 import Information from "./components/Information";
-import discalculia from "./assets/discalculia.png";
-import Causas from "./assets/causa,png.jpg";
-import Sintomas from "./assets/sintomas.png";
-import Tratar from "./assets/tratar.png";
+import discalculia from "./assets/images/discalculia.png";
+import Causas from "./assets/images/causa,png.jpg";
+import Sintomas from "./assets/images/sintomas.png";
+import Tratar from "./assets/images/tratar.png";
 
 function App() {
   return (
