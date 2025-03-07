@@ -1,12 +1,12 @@
 import React from "react";
 import "./App.css";
 import img1 from "./assets/images/img1.png";
-import Nav from "./components/Nav";
-import Services from "./components/Services";
+import Nav from "./components/layout/Nav";
+import Services from "./components/sections/Services";
 import habilidad from "./assets/images/habilidad.png";
 import confianza from "./assets/images/confianza.png";
 import motivacion from "./assets/images/motivacion.png";
-import Information from "./components/Information";
+import Information from "./components/sections/Information";
 import discalculia from "./assets/images/discalculia.png";
 import Causas from "./assets/images/causa,png.jpg";
 import Sintomas from "./assets/images/sintomas.png";
