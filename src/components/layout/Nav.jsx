@@ -4,6 +4,7 @@ import logo from '../../assets/images/logo.png'; // Importa las imágenes
 
 function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,8 +21,12 @@ function Nav() {
     };
   }, []);
 
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
   return (
-    <div className={`nav-container ${scrolled ? 'scrolled' : ''}`}>
+    <div className={`nav-container ${scrolled ? 'scrolled' : ''} ${menuOpen ? 'active' : ''}`}>
       <div className="logo-container">
         <a href="#" className="logo">
           <img src={logo} alt="DiscalWeb logo" />
@@ -29,14 +34,13 @@ function Nav() {
       </div>
       <nav className="navbar">
         <ul>
-          <li><a href="#inicio">Inicio</a></li>
-          <li><a href="#ayuda">Te ayudamos</a></li>
-          <li><a href="#discalculia">Discalculia</a></li>
-          <li><a href="https://poolextremo.itch.io/juegos">Juegos</a></li>
-          <li><a href="#contactos">Contacto</a></li>
+          <li><a href="#inicio" onClick={() => setMenuOpen(false)}>Inicio</a></li>
+          <li><a href="#ayuda" onClick={() => setMenuOpen(false)}>Te ayudamos</a></li>
+          <li><a href="#discalculia" onClick={() => setMenuOpen(false)}>Discalculia</a></li>
+          <li><a href="#contactos" onClick={() => setMenuOpen(false)}>Contacto</a></li>
         </ul>
       </nav>
-      <div className="mobile-toggle">
+      <div className="mobile-toggle" onClick={toggleMenu}>
         <span></span>
         <span></span>
         <span></span>
@@ -44,4 +48,5 @@ function Nav() {
     </div>
   );
 }
-export default Nav
+
+export default Nav;

@@ -1,5 +1,6 @@
 import React from 'react';
 import './About.css';
+import { FaGamepad, FaChartLine, FaUsers } from 'react-icons/fa';
 
 function About() {
   return (
@@ -28,21 +29,21 @@ function About() {
           <div className="about-features">
             <div className="feature">
               <div className="feature-icon">
-                <i className="fas fa-gamepad"></i>
+                <FaGamepad />
               </div>
               <h3>Juegos Interactivos</h3>
               <p>Actividades divertidas diseñadas por profesionales de la educación especial</p>
             </div>
             <div className="feature">
               <div className="feature-icon">
-                <i className="fas fa-chart-line"></i>
+                <FaChartLine />
               </div>
               <h3>Seguimiento de Progreso</h3>
               <p>Monitoreo detallado del avance y áreas de mejora para cada estudiante</p>
             </div>
             <div className="feature">
               <div className="feature-icon">
-                <i className="fas fa-users"></i>
+                <FaUsers />
               </div>
               <h3>Comunidad de Apoyo</h3>
               <p>Recursos para padres y educadores para acompañar el proceso de aprendizaje</p>

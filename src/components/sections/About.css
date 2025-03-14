@@ -1,141 +1,212 @@
 .about-section {
-    background: rgba(80, 33, 173, 0.1);
-    position: relative;
-    overflow: hidden;
+  background: rgba(80, 33, 173, 0.1);
+  position: relative;
+  overflow: hidden;
+  padding: 80px 0;
+}
+
+.about-section::before {
+  content: '';
+  position: absolute;
+  top: -150px;
+  right: -150px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: rgba(208, 84, 113, 0.2);
+  z-index: 0;
+}
+
+.about-section::after {
+  content: '';
+  position: absolute;
+  bottom: -150px;
+  left: -150px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: rgba(218, 166, 87, 0.2);
+  z-index: 0;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.section-title h2 {
+  font-size: 40px;
+  color: #6732BA; /* Color morado oscuro para mejor contraste */
+  margin-bottom: 15px;
+  position: relative;
+  display: inline-block;
+  font-weight: 700;
+}
+
+.section-title h2::after {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 3px;
+  background: #DAA657; /* Color dorado para la línea */
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.about-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.about-text {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.15); /* Efecto cristalino */
+  backdrop-filter: blur(10px); /* Efecto de desenfoque para el cristal */
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.about-text p {
+  font-size: 18px;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  color: #333; /* Color oscuro para mejor legibilidad */
+}
+
+.about-features {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.feature {
+  background: rgba(255, 255, 255, 0.1); /* Efecto cristalino */
+  backdrop-filter: blur(10px); /* Efecto de desenfoque para el cristal */
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  flex: 1;
+  min-width: 250px;
+  max-width: 350px;
+  transition: all 0.4s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.feature:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.feature-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(103, 50, 186, 0.3); /* Color morado claro */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  transition: all 0.3s ease;
+}
+
+.feature:hover .feature-icon {
+  background: rgba(218, 166, 87, 0.5); /* Color dorado al hover */
+  transform: scale(1.1);
+}
+
+.feature-icon svg {
+  font-size: 32px;
+  color: #620ee7; /* Color dorado para los iconos */
+}
+
+.feature h3 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: #8d67cb; /* Color morado para los títulos */
+  font-weight: 600;
+}
+
+.feature p {
+  font-size: 16px;
+  color: #444; /* Color gris oscuro para mejor legibilidad */
+  line-height: 1.6;
+}
+
+/* Animation for elements */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
   }
-  
-  .about-section::before {
-    content: '';
-    position: absolute;
-    top: -150px;
-    right: -150px;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    background: rgba(208, 84, 113, 0.2);
-    z-index: 0;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .about-section::after {
-    content: '';
-    position: absolute;
-    bottom: -150px;
-    left: -150px;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    background: rgba(218, 166, 87, 0.2);
-    z-index: 0;
-  }
-  
-  .about-content {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 50px;
-  }
-  
-  .about-text {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  
+}
+
+.hidden {
+  opacity: 0;
+  filter: blur(5px);
+  transform: translateY(30px);
+  transition: all 1s ease;
+}
+
+.show {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+}
+
+/* Responsiveness */
+@media (max-width: 992px) {
   .about-text p {
-    font-size: 18px;
-    line-height: 1.8;
-    margin-bottom: 20px;
-    color: beige;
-  }
-  
-  .about-features {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin-top: 30px;
-    flex-wrap: wrap;
+    font-size: 16px;
   }
   
   .feature {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    flex: 1;
-    min-width: 250px;
-    max-width: 350px;
-    transition: all 0.3s ease;
-  }
-  
-  .feature:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    padding: 25px;
+    min-width: 220px;
   }
   
   .feature-icon {
     width: 70px;
     height: 70px;
-    border-radius: 50%;
-    background: rgba(218, 166, 87, 0.2);
-    display: flex;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-features {
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    margin: 0 auto 20px;
+    gap: 20px;
   }
   
-  .feature-icon i {
-    font-size: 30px;
-    color: #DAA657;
+  .feature {
+    width: 100%;
+    max-width: 100%;
   }
   
-  .feature h3 {
-    font-size: 20px;
-    margin-bottom: 15px;
-    color: beige;
+  .section-title h2 {
+    font-size: 32px;
   }
   
-  .feature p {
-    font-size: 16px;
-    color: beige;
-    line-height: 1.6;
+  .about-section {
+    padding: 60px 0;
   }
-  
-  /* Animaciones */
-  .about-content.show {
-    animation: fadeInUp 1s ease forwards;
-  }
-  
-  @keyframes fadeInUp {
-    0% {
-      opacity: 0;
-      transform: translateY(50px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  /* Responsividad */
-  @media (max-width: 992px) {
-    .about-text p {
-      font-size: 16px;
-    }
-    
-    .feature {
-      padding: 25px;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .about-features {
-      flex-direction: column;
-      align-items: center;
-    }
-    
-    .feature {
-      min-width: 100%;
-    }
-  }
+}
