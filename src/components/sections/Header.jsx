@@ -17,7 +17,7 @@ function Header({ image }) {
               <Button href="#ayuda" type="primary" className="btn-lg">
                 Conoce más
               </Button>
-              <Button href="#registro" type="secondary" className="btn-lg">
+              <Button href="/register" type="secondary" className="btn-lg">
                 Registro
               </Button>
             </div>
