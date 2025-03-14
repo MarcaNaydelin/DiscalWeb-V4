@@ -25,7 +25,7 @@ function App() {
     };
     
     window.addEventListener('scroll', handleScroll);
-    // Ejecutar una vez al cargar para animar elementos visibles inicialmente
+    // Execute once on load to animate initially visible elements
     handleScroll();
     
     return () => {
