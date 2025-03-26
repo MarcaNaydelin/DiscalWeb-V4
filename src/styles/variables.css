@@ -1,8 +1,9 @@
 :root {
-  /* Updated color palette - more professional and softer */
   --primary-color: #5021Ad;
   --secondary-color: #7A55D5;
   --accent-color: #F5A742;
+  --info-color: #4BD4D4;
+
   --background-light: #f8f4ff;
   --background-medium: #e9e1f9;
   --text-color-light: #fff;
@@ -13,6 +14,8 @@
   --gradient-bg: linear-gradient(135deg, #5021Ad 0%, #7A55D5 100%);
   --gradient-accent: linear-gradient(135deg, #F5A742 0%, #F7BE6D 100%);
   --gradient-card: linear-gradient(to bottom, #ffffff 0%, #f8f4ff 100%);
+  --gradient-primary: linear-gradient(135deg, #5021Ad 0%, #7A55D5 100%);
+  --gradient-secondary: linear-gradient(135deg, #D05471 0%, #E77A9B 100%);
   
   /* Shadows */
   --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.1);
