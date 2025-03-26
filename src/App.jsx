@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
 import "./styles/variables.css";
 import "./styles/globals.css";
@@ -12,63 +12,82 @@ import Footer from "./components/layout/Footer";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
 
-// Layout wrapper component to control which pages get the footer
-const MainLayout = ({ children, includeFooter = true }) => (
+const MainLayout = ({ children, includeNav = true, includeFooter = true }) => (
   <>
+    {includeNav && <Nav />}
     {children}
     {includeFooter && <Footer />}
   </>
 );
 
+const ProtectedRoute = ({ children }) => {
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+  if (!isLoggedIn) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return children;
+};
+
 function App() {
   // Función para animar elementos al hacer scroll
   useEffect(() => {
     const handleScroll = () => {
-      const elements = document.querySelectorAll('.hidden');
-      
-      elements.forEach(element => {
+      const elements = document.querySelectorAll(".hidden");
+
+      elements.forEach((element) => {
         const position = element.getBoundingClientRect().top;
         const screenPosition = window.innerHeight / 1.3;
-        
+
         if (position < screenPosition) {
-          element.classList.add('show');
+          element.classList.add("show");
         }
       });
     };
-    
-    window.addEventListener('scroll', handleScroll);
-    // Execute once on load to animate initially visible elements
+
+    window.addEventListener("scroll", handleScroll);
+
     handleScroll();
-    
+
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   return (
     <Router>
       <div className="App">
-        <Nav />
         <main>
           <Routes>
-            <Route path="/" element={
-              <MainLayout includeFooter={true}>
-                <Home />
-              </MainLayout>
-            } />
-            <Route path="/login" element={
-              <MainLayout includeFooter={false}>
-                <Login />
-              </MainLayout>
-            } />
+            <Route path="/"  element={
+                <MainLayout includeFooter={true}>
+                  <Home />
+                </MainLayout>
+              }
+            />
+            <Route  path="/login"  element={
+                <MainLayout includeNav={false} includeFooter={false}>
+                  <Login />
+                </MainLayout>
+              }
+            />
             <Route path="/register" element={
-              <MainLayout includeFooter={false}>
-                <Register />
-              </MainLayout>
-            } />
-            {/* Agregar más rutas según sea necesario */}
-            {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+                <MainLayout includeNav={false} includeFooter={false}>
+                  <Register />
+                </MainLayout>
+              }
+            />
+            <Route path="/dashboard" element={
+                <ProtectedRoute>
+                  <MainLayout includeNav={false} includeFooter={false}>
+                    <Dashboard />
+                  </MainLayout>
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </main>
       </div>
