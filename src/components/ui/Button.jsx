@@ -2,13 +2,20 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Button.css';
 
-function Button({ children, type = 'primary', onClick, href, className }) {
-  const buttonClasses = `btn btn-${type} ${className || ''}`;
-  
-  // Si es una ruta interna que comienza con "/", usa Link de react-router-dom
+function Button({ 
+  children, 
+  type = 'primary', 
+  onClick, 
+  href, 
+  className, 
+  disabled = false 
+}) {
+  const buttonClasses = `btn btn-${type} ${className || ''} ${disabled ? 'btn-disabled' : ''}`;
+
+  // If it's an internal route starting with "/"
   if (href && href.startsWith('/')) {
     return (
-      <Link 
+      <Link
         to={href}
         className={buttonClasses}
         onClick={onClick}
@@ -17,11 +24,11 @@ function Button({ children, type = 'primary', onClick, href, className }) {
       </Link>
     );
   }
-  
-  // Si se proporciona un href que no comienza con "/" (enlace externo o ancla)
+
+  // If an external href is provided
   if (href) {
     return (
-      <a 
+      <a
         href={href}
         className={buttonClasses}
         onClick={onClick}
@@ -30,12 +37,13 @@ function Button({ children, type = 'primary', onClick, href, className }) {
       </a>
     );
   }
-  
-  // Si no hay href
+
+  // Standard button
   return (
     <button
       className={buttonClasses}
       onClick={onClick}
+      disabled={disabled}
     >
       {children}
     </button>

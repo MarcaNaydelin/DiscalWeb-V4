@@ -24,7 +24,7 @@ const Overview = ({ children, onAddChild }) => {
 
       <section className="welcome-section">
         <div className="welcome-content">
-          <h2>¡Bienvenido a DiCalculia!</h2>
+          <h2>¡Bienvenido a DiscalWeb!</h2>
           <p>Comienza a monitorear el progreso de aprendizaje matemático de tus hijos.</p>
           
           <div className="first-steps">
