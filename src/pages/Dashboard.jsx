@@ -51,25 +51,18 @@ const Dashboard = () => {
     const isLoggedIn = localStorage.getItem("isLoggedIn");
     if (!isLoggedIn) {
       navigate("/login");
+    } else {
+      // Cargar perfiles de niños desde localStorage
+      const savedChildren = JSON.parse(localStorage.getItem('children') || '[]');
+      if (savedChildren.length > 0) {
+        setChildren(savedChildren);
+      }
     }
   }, [navigate]);
 
-  const handleAddChild = (newChildData) => {
-    const newChild = {
-      id: children.length + 1,
-      ...newChildData,
-      avatar: "/src/assets/default-avatar.svg",
-      lastActivity: "Nuevo",
-      progress: 0,
-      skills: {
-        attention: 0,
-        memory: 0,
-        processing: 0,
-        visualization: 0
-      }
-    };
-
-    setChildren([...children, newChild]);
+  const handleAddChild = () => {
+    // Navigate to child profile creation page
+    navigate("/create-child-profile");
   };
 
   const handleLogout = () => {
@@ -87,8 +80,6 @@ const Dashboard = () => {
         return <SkillTracking children={children} />;
       case 'recent-activities':
         return <RecentActivities children={children} />;
-      case 'settings':
-        return <Settings />;
       default:
         return <Overview children={children} onAddChild={handleAddChild} />;
     }

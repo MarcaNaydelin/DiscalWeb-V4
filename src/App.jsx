@@ -13,6 +13,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
+import ChildProfileCreation from "./components/dashboard/ChildProfileCreation";
 
 const MainLayout = ({ children, includeNav = true, includeFooter = true }) => (
   <>
@@ -84,6 +85,14 @@ function App() {
                 <ProtectedRoute>
                   <MainLayout includeNav={false} includeFooter={false}>
                     <Dashboard />
+                  </MainLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/create-child-profile" element={
+                <ProtectedRoute>
+                  <MainLayout includeNav={false} includeFooter={false}>
+                    <ChildProfileCreation />
                   </MainLayout>
                 </ProtectedRoute>
               }
