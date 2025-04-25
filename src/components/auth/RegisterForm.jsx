@@ -114,8 +114,9 @@ const RegisterForm = () => {
             <div className="form-terms">
               <label className="checkbox-container">
                 <Field type="checkbox" name="termsAccepted" />
-                <span className="checkmark"></span>
-                Acepto los <a href="#" className="terms-link">términos y condiciones</a> y la <a href="#" className="terms-link">política de privacidad</a>
+                <div className="terms-text">
+                  Acepto los <a href="#" className="terms-link">términos y condiciones</a> y la <a href="#" className="terms-link">política de privacidad</a>
+                </div>
               </label>
               <ErrorMessage name="termsAccepted" component="div" className="error-message" />
             </div>
