@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import RegisterForm from "../components/auth/RegisterForm";
 import "./Register.css";
+// Importar la imagen directamente para garantizar que se cargue correctamente
+import loginImage from "../assets/register_login/login.png";
 
 const Register = () => {
   return (
@@ -23,9 +25,10 @@ const Register = () => {
           </div>
           <div className="register-image">
             <div className="image-container">
-              <img 
-                src="/src/assets/register-image.svg" 
-                alt="Register illustration" 
+              <img
+                src={loginImage}
+                alt="Educación ilustración"
+                className="register-illustration"
                 onError={(e) => {
                   e.target.onerror = null;
                   e.target.src = "https://via.placeholder.com/500x400?text=DISCAL+Register";
@@ -35,6 +38,7 @@ const Register = () => {
           </div>
         </div>
       </div>
+      <div className="background-decoration"></div>
     </section>
   );
 };
