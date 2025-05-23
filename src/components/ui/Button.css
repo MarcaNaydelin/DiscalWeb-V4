@@ -1,13 +1,3 @@
-:root {
-  --primary-color: #5021Ad;
-  --secondary-color: #7A55D5;
-  --accent-color: #F5A742;
-  --cyan-color: #4BD4D4;
-  --pink-color: #D05471;
-  --light-purple: #f0e6ff;
-  --neutral-gray: #f0f0f0;
-}
-
 .btn {
   display: inline-block;
   padding: 12px 25px;
@@ -27,10 +17,7 @@
 .btn::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  top: 0; left: 0; right: 0; bottom: 0;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 30px;
   transform: scale(0);
@@ -62,31 +49,29 @@
 }
 
 .btn-secondary:hover {
-  background-color: var(--light-purple);
+  background-color: var(--background-medium);
   transform: translateY(-3px);
   box-shadow: 0 8px 20px rgba(80, 33, 173, 0.2);
   color: black;
 }
 
-/* Nueva variante para botones de opciones */
 .btn-option {
   background-color: white;
   color: #555;
   border: 1px solid #ddd;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   font-weight: 400;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .btn-option:hover {
-  background-color: var(--light-purple);
+  background-color: var(--background-medium);
   color: var(--primary-color);
-  transform: translateY(-2px);
   border-color: var(--secondary-color);
+  transform: translateY(-2px);
 }
 
-/* Variante terciaria más sutil para botones como "Atrás" */
 .btn-tertiary {
-  background-color: var(--neutral-gray);
+  background-color: var(--background-light);
   color: #666;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -104,22 +89,6 @@
   box-shadow: none !important;
 }
 
-.btn-disabled:hover {
-  transform: none !important;
-  box-shadow: none !important;
-}
-
-.btn-lg {
-  padding: 14px 30px;
-  font-size: 16px;
-  font-weight: 600;
-}
-
-/* Mejora para los botones de grupo de edad */
-.age-button {
-  min-width: 110px;
-}
-
 @media (max-width: 768px) {
   .btn {
     padding: 10px 20px;
@@ -130,8 +99,70 @@
     padding: 12px 25px;
     font-size: 16px;
   }
-  
-  .age-button {
-    min-width: 90px;
-  }
+}
+
+.btn-color-accent {
+  background-color: var(--accent-color);
+  color: white;
+  box-shadow: 0 4px 15px rgba(245, 167, 66, 0.3);
+}
+
+.btn-color-accent:hover {
+  background-color: #f7be6d;
+  box-shadow: 0 8px 20px rgba(245, 167, 66, 0.5);
+  transform: translateY(-3px);
+}
+
+.btn-color-info {
+  background-color: var(--info-color);
+  color: white;
+  box-shadow: 0 4px 15px rgba(64, 224, 208, 0.3);
+}
+
+.btn-color-info:hover {
+  background-color: #6eeaea;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(64, 224, 208, 0.5);
+}
+
+.btn-color-success {
+  background-color: var(--success-color);
+  color: white;
+  box-shadow: 0 4px 15px rgba(16, 161, 157, 0.3);
+}
+
+.btn-color-success:hover {
+  background-color: #25c5c2;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(16, 161, 157, 0.5);
+}
+
+.btn-color-warning {
+  background-color: var(--warning-color);
+  color: white;
+  box-shadow: 0 4px 15px rgba(208, 84, 113, 0.3);
+}
+
+.btn-color-warning:hover {
+  background-color: #e56b70;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(208, 84, 113, 0.5);
+}
+
+.btn-color-gray {
+  background-color: var(--neutral-gray);
+  color: #333;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.btn-color-gray:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-gradient-excellent {
+  background: var(--gradient-status-excellent);
+  color: white;
+  border: none;
 }

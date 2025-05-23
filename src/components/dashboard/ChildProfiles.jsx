@@ -1,120 +1,74 @@
 import React, { useState } from 'react';
 import './ChildProfiles.css';
+import ChildCard from '../ui/ChildCard';
+import Button from '../ui/Button';
+import { FaPlus } from 'react-icons/fa';
+import AddChildModal from './AddChildModal';
+import { determineLevel } from '../../utils/childUtils';
 
-const ChildProfiles = ({ children, onAddChild }) => {
+const ChildProfiles = ({ children = [], onAddChild }) => {
   const [showAddChildModal, setShowAddChildModal] = useState(false);
-  const [newChild, setNewChild] = useState({
-    name: '',
-    age: '',
-    grade: ''
-  });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewChild(prev => ({
-      ...prev,
-      [name]: value
-    }));
+  const handleEdit = (id) => {
+    console.log(`Editar perfil con ID: ${id}`);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onAddChild(newChild);
-    setShowAddChildModal(false);
-    setNewChild({ name: '', age: '', grade: '' });
+  const handleDelete = (id) => {
+    console.log(`Eliminar perfil con ID: ${id}`);
+  };
+
+  const handleQR = (id) => {
+    console.log(`Mostrar QR para ID: ${id}`);
   };
 
   return (
     <div className="child-profiles-container">
       <div className="profiles-header">
         <h2>Perfiles de Niños</h2>
-        <button 
-          className="btn btn-primary add-child-btn"
+        <Button 
+          type="primary" 
+          className="add-profile-button custom-add-button"
           onClick={() => setShowAddChildModal(true)}
         >
-          + Añadir Perfil
-        </button>
+          <FaPlus className="plus-icon" /> Añadir Nuevo Perfil
+        </Button>
       </div>
 
       {children.length === 0 ? (
         <div className="no-profiles">
           <p>No hay perfiles de niños registrados</p>
+          <Button 
+            type="primary" 
+            className="add-profile-button empty-state-button"
+            onClick={() => setShowAddChildModal(true)}
+          >
+            <FaPlus className="plus-icon" /> Añadir Primer Perfil
+          </Button>
         </div>
       ) : (
         <div className="profiles-grid">
-          {children.map(child => (
-            <div key={child.id} className="child-profile-card">
-              <img 
-                src={child.avatar || '/src/assets/default-avatar.svg'} 
-                alt={child.name} 
-                className="child-avatar"
-              />
-              <div className="child-info">
-                <h3>{child.name}</h3>
-                <p>Edad: {child.age} años</p>
-                <p>Grado: {child.grade}</p>
-                <div className="progress-bar">
-                  <div 
-                    className="progress" 
-                    style={{width: `${child.progress}%`}}
-                  ></div>
-                </div>
-                <span className="progress-text">
-                  Progreso: {child.progress}%
-                </span>
-              </div>
-            </div>
+          {children.map((child) => (
+            <ChildCard
+              key={child.id}
+              name={child.name}
+              progress={child.progress || 0}
+              games={child.games || 0}
+              lastActivity={child.lastActivity || 'Nuevo'}
+              level={determineLevel(child.progress || 0)}
+              avatar={child.avatar || '/src/assets/profileimg/default-avatar.svg'}
+              onEdit={() => handleEdit(child.id)}
+              onDelete={() => handleDelete(child.id)}
+              onQR={() => handleQR(child.id)}
+            />
           ))}
         </div>
       )}
 
       {showAddChildModal && (
-        <div className="add-child-modal">
-          <div className="modal-content">
-            <h2>Añadir Nuevo Perfil</h2>
-            <form onSubmit={handleSubmit}>
-              <input
-                type="text"
-                name="name"
-                placeholder="Nombre del Niño"
-                value={newChild.name}
-                onChange={handleInputChange}
-                required
-              />
-              <input
-                type="number"
-                name="age"
-                placeholder="Edad"
-                value={newChild.age}
-                onChange={handleInputChange}
-                required
-              />
-              <input
-                type="text"
-                name="grade"
-                placeholder="Grado Escolar"
-                value={newChild.grade}
-                onChange={handleInputChange}
-                required
-              />
-              <div className="modal-actions">
-                <button 
-                  type="button" 
-                  className="btn btn-secondary"
-                  onClick={() => setShowAddChildModal(false)}
-                >
-                  Cancelar
-                </button>
-                <button 
-                  type="submit" 
-                  className="btn btn-primary"
-                >
-                  Guardar
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
+        <AddChildModal
+          onClose={() => setShowAddChildModal(false)}
+          onAddChild={onAddChild}
+        />
       )}
     </div>
   );

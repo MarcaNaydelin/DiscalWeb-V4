@@ -1,17 +1,18 @@
 :root {
   /* Colores Principales */
-  --primary-color: #5021Ad;
-  --secondary-color: #7A55D5;
-  --accent-color: #F5A742;
-  --info-color: #4BD4D4;
-  --highlight-color: #FFBF00;
-  --secondary-accent: #10A19D;
+  --primary-color: #5021AD;         /* Morado oscuro institucional */
+  --secondary-color: #7A55D5;       /* Violeta complementario */
+  --accent-color: #F5A742;          /* Mostaza suave */
+  --info-color: #40E0D0;            /* Turquesa brillante */
+  --success-color: #10A19D;         /* Verde azulado */
+  --highlight-color: #FFBF00;      /* Amarillo anaranjado */
+    --warning-color: #D05471;     /* Rojo suave */
 
   /* Colores para estados de progreso/niveles del progreso */
-  --status-beginner: #D05471;        /* Principiante */
-  --status-intermediate: #FFBF00;    /* Intermedio */
-  --status-advanced: #10A19D;        /* Avanzado */
-  --status-excellent: #6EA7C1;       /* Excelente */
+  --status-beginner: #4BD4D4;       /* Principiante: Turquesa claro (suave, tranquilizador) */
+  --status-intermediate: #FFBF00;   /* Intermedio: Amarillo anaranjado (energizante) */
+  --status-advanced: #10A19D;       /* Avanzado: Verde azulado (progreso, estabilidad) */
+  --status-excellent: #6EA7C1;      /* Excelente: Azul pastel (logro, calma visual) */
 
   /* Fondos */
   --background-light: #f8f4ff;
@@ -19,10 +20,10 @@
   --background-card: #ffffff;
 
   /* Color de los textos */
-  --text-color-light: #ffffff;
   --text-color-dark: #333333;
   --text-color-medium: #666666;
   --text-color-muted: #999999;
+  --text-color-light: #ffffff;
   
   /* Colores gradiantes */
 --gradient-bg: linear-gradient(135deg, #5021Ad 0%, #7A55D5 80%, #9A7AE5 100%);
@@ -42,11 +43,11 @@
   --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.12);
   --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.15);
   
-  /* Los Espaciados */
+  /* Espaciados */
   --section-padding: 80px 0;
   --container-padding: 0 20px;
   
-  /* Los Bordes */
+  /* Bordes */
   --border-radius: 15px;
   --border-radius-sm: 8px;
   --border-radius-lg: 20px;
