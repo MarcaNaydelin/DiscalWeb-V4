@@ -37,13 +37,6 @@ const ChildProfiles = ({ children = [], onAddChild }) => {
       {children.length === 0 ? (
         <div className="no-profiles">
           <p>No hay perfiles de niños registrados</p>
-          <Button 
-            type="primary" 
-            className="add-profile-button empty-state-button"
-            onClick={() => setShowAddChildModal(true)}
-          >
-            <FaPlus className="plus-icon" /> Añadir Primer Perfil
-          </Button>
         </div>
       ) : (
         <div className="profiles-grid">

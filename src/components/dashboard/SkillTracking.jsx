@@ -28,7 +28,7 @@ const SkillTracking = ({ children }) => {
                 />
                 <div className="child-info">
                   <h3>{child.name}</h3>
-                  <p>Edad: {child.age} años</p>
+                  <p>Edad: {child.age}</p>
                 </div>
               </div>
               <div className="skills-grid">

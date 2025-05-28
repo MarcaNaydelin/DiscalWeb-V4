@@ -6,7 +6,7 @@
   --info-color: #40E0D0;            /* Turquesa brillante */
   --success-color: #10A19D;         /* Verde azulado */
   --highlight-color: #FFBF00;      /* Amarillo anaranjado */
-    --warning-color: #D05471;     /* Rojo suave */
+  --warning-color: #D05471;     /* Rojo suave */
 
   /* Colores para estados de progreso/niveles del progreso */
   --status-beginner: #4BD4D4;       /* Principiante: Turquesa claro (suave, tranquilizador) */
