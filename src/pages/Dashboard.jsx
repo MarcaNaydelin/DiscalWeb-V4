@@ -16,17 +16,17 @@ const Dashboard = () => {
   const [children, setChildren] = useState([
     {
       id: 1,
-      name: "Ana García",
-      age: 8,
-      grade: "3° Primaria",
-      avatar: "/src/assets/avatar-girl.svg",
-      lastActivity: "Hace 2 días",
-      progress: 75,
+      name: "Luis Pérez",
+      age: 7,
+      grade: "2° Primaria",
+      avatar: "/src/assets/avatar-boy2.svg",
+      lastActivity: "Nuevo",
+      progress: 10, // 🟣 Nivel: beginner
       skills: {
-        attention: 80,
-        memory: 65,
-        processing: 70,
-        visualization: 85
+        attention: 20,
+        memory: 15,
+        processing: 10,
+        visualization: 25
       }
     },
     {
@@ -36,12 +36,42 @@ const Dashboard = () => {
       grade: "1° Primaria",
       avatar: "/src/assets/avatar-boy.svg",
       lastActivity: "Hoy",
-      progress: 45,
+      progress: 45, // 🟡 Nivel: intermediate
       skills: {
         attention: 50,
         memory: 40,
         processing: 45,
         visualization: 60
+      }
+    },
+    {
+      id: 3,
+      name: "Ana García",
+      age: 8,
+      grade: "3° Primaria",
+      avatar: "/src/assets/avatar-girl.svg",
+      lastActivity: "Hace 2 días",
+      progress: 75, // 🔵 Nivel: advanced
+      skills: {
+        attention: 80,
+        memory: 65,
+        processing: 70,
+        visualization: 85
+      }
+    },
+    {
+      id: 4,
+      name: "Valentina Ríos",
+      age: 9,
+      grade: "4° Primaria",
+      avatar: "/src/assets/avatar-girl2.svg",
+      lastActivity: "Ayer",
+      progress: 90, // 🌟 Nivel: excellent
+      skills: {
+        attention: 95,
+        memory: 88,
+        processing: 91,
+        visualization: 92
       }
     }
   ]);
