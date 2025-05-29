@@ -7,6 +7,11 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Ignorar archivos sensibles
+.env
+Backend/.env
+
+# Ignorar módulos
 node_modules
 dist
 dist-ssr
