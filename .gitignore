@@ -10,6 +10,7 @@ lerna-debug.log*
 # Ignorar archivos sensibles
 .env
 Backend/.env
+Backend/node_modules
 
 # Ignorar módulos
 node_modules
