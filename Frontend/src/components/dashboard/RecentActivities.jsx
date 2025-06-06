@@ -22,7 +22,7 @@ const RecentActivities = ({ children }) => {
   return (
     <div className="recent-activities-container">
       <h2>Actividades Recientes</h2>
-      {children.length === 0 ? (
+      {!Array.isArray(children) || children.length === 0 ? (
         <div className="no-activities">
           <p>No hay actividades para mostrar</p>
         </div>
@@ -34,7 +34,7 @@ const RecentActivities = ({ children }) => {
               <div key={activity.id} className="activity-item">
                 <div className="activity-icon">{activity.icon}</div>
                 <div className="activity-details">
-                  <h3>{child.name}</h3>
+                  <h3>{child ? child.name : "Niño desconocido"}</h3>
                   <p>{activity.activity}</p>
                   <span className="activity-date">{activity.date}</span>
                 </div>

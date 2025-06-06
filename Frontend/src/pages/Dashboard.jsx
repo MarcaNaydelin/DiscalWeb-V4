@@ -7,13 +7,14 @@ import Overview from "../components/dashboard/Overview";
 import ChildProfiles from "../components/dashboard/ChildProfiles";
 import SkillTracking from "../components/dashboard/SkillTracking";
 import RecentActivities from "../components/dashboard/RecentActivities";
+import Reports from "../components/dashboard/Reports";
 
 import "./Dashboard.css";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [activeSection, setActiveSection] = useState("overview");
-  const [children, setChildren] = useState([]); // ✅ Iniciamos con array vacío
+  const [children, setChildren] = useState([]);
 
   useEffect(() => {
     // Verificar inicio de sesión
@@ -47,6 +48,8 @@ const Dashboard = () => {
         return <SkillTracking children={children} />;
       case 'recent-activities':
         return <RecentActivities children={children} />;
+      case 'reports':
+        return <Reports children={children} />;
       default:
         return <Overview children={children} onAddChild={handleAddChild} />;
     }
