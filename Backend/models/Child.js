@@ -33,8 +33,14 @@ const updateChild = async ({ id, name, identification_type, age_group, avatar })
   return result.rows[0];
 };
 
+const findById = async (id) => {
+  const result = await db.query('SELECT * FROM children WHERE id = $1', [id]);
+  return result.rows[0];
+};
+
 module.exports = {
   createChild,
   getChildrenByParent,
-  updateChild
+  updateChild,
+  findById,
 };
