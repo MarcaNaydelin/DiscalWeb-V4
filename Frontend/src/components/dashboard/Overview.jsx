@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaUserPlus, FaCog, FaMobileAlt, FaChartBar } from 'react-icons/fa';
 import './Overview.css';
+import Button from '../ui/Button'; // Asegúrate que esta ruta es correcta
 
 const Overview = ({ children, onAddChild }) => {
   return (
@@ -8,18 +9,19 @@ const Overview = ({ children, onAddChild }) => {
       <header className="overview-header">
         <div className="header-branding">
           <img 
-            src="/src/assets/images/logopanelp.png" 
+            src="/src/assets/images/logopanelp.png" // Asegúrate que la ruta al logo es correcta
             alt="DiscalWeb Logo" 
             className="header-logo" 
           />
           <h1>DiscalWeb</h1>
         </div>
-        <button 
+        <Button 
           onClick={onAddChild} 
-          className="btn btn-primary add-profile-btn"
+          type="primary" // Asumo que tu Button tiene una prop 'type'
+          className="add-profile-btn-header" // Clase específica para este botón
         >
           <FaUserPlus className="btn-icon" /> Añadir Perfil de Niño
-        </button>
+        </Button>
       </header>
 
       <section className="welcome-section">
@@ -29,39 +31,26 @@ const Overview = ({ children, onAddChild }) => {
           
           <div className="first-steps">
             {[
-              { 
-                text: "Crea un perfil para tu hijo/a", 
-                icon: <FaUserPlus /> 
-              },
-              { 
-                text: "Configura sus datos básicos", 
-                icon: <FaCog /> 
-              },
-              { 
-                text: "Accede a los juegos desde el dispositivo móvil", 
-                icon: <FaMobileAlt /> 
-              },
-              { 
-                text: "Monitorea su progreso desde este panel", 
-                icon: <FaChartBar /> 
-              }
+              { text: "Crea un perfil para tu hijo/a", icon: <FaUserPlus /> },
+              { text: "Configura sus datos básicos", icon: <FaCog /> },
+              { text: "Accede a los juegos desde el dispositivo móvil", icon: <FaMobileAlt /> },
+              { text: "Monitorea su progreso desde este panel", icon: <FaChartBar /> }
             ].map((step, index) => (
               <div key={index} className="step">
                 <span className="step-number">{index + 1}</span>
-                <div className="step-content">
-                  <div className="step-icon">{step.icon}</div>
-                  <p>{step.text}</p>
-                </div>
+                <div className="step-icon-wrapper">{step.icon}</div>
+                <p className="step-text">{step.text}</p>
               </div>
             ))}
           </div>
 
-          <button 
+          <Button 
             onClick={onAddChild} 
-            className="btn btn-primary create-profile-btn"
+            type="primary"
+            className="create-profile-btn-welcome" // Clase específica
           >
             <FaUserPlus className="btn-icon" /> Crear Perfil de Niño
-          </button>
+          </Button>
         </div>
       </section>
     </div>

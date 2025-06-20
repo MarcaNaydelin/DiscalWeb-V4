@@ -3,12 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import "./LoginForm.css";
+import AlertNotification, { alertMessages } from "../ui/AlertNotification";
+import CircularProgress from "@mui/material/CircularProgress";
+
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const [loginError, setLoginError] = useState("");
+  const [alert, setAlert] = useState(null);
 
-  // Esquema de validación
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
       .email("Correo electrónico inválido")
@@ -18,31 +21,76 @@ const LoginForm = () => {
       .required("La contraseña es obligatoria"),
   });
 
-  // Función para manejar el envío del formulario
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
-      // Aquí implementarías la llamada a tu API
-      console.log("Login values:", values);
+      const res = await fetch(`${API_URL}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+
+      const data = await res.json();
       
-      // Simulación de login exitoso después de 1 segundo
-      setTimeout(() => {
-        // Guardar el token o información de sesión
-        localStorage.setItem("isLoggedIn", "true");
+      if (!res.ok) {
+        // Manejo específico de errores del servidor
+        let errorMessage = alertMessages.loginError;
         
-        // Redireccionar al dashboard
-        navigate("/dashboard");
-        setSubmitting(false);
-      }, 1000);
+        if (res.status === 404 || data.message?.includes("not found") || data.message?.includes("no encontrado")) {
+          errorMessage = alertMessages.userNotFound;
+        } else if (res.status === 401 || data.message?.includes("credencial") || data.message?.includes("password")) {
+          errorMessage = alertMessages.loginError;
+        } else if (res.status >= 500) {
+          errorMessage = alertMessages.serverError;
+        } else if (data.message) {
+          errorMessage = data.message;
+        }
+        
+        throw new Error(errorMessage);
+      }
+
+      // Guardar datos de usuario
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.parent || data.user));
+      localStorage.setItem("isLoggedIn", "true");
+
+      // Mostrar mensaje de éxito
+      setAlert({ 
+        type: "success", 
+        message: alertMessages.loginSuccess 
+      });
+      
+      // Redirigir después de 1.5 segundos
+      setTimeout(() => navigate("/dashboard"), 1500);
       
     } catch (error) {
-      console.error("Login error:", error);
-      setLoginError("Error al iniciar sesión. Por favor, intenta de nuevo.");
+      // Manejo de errores de red
+      let errorMessage = error.message;
+      
+      if (error.name === 'TypeError' && error.message.includes('fetch')) {
+        errorMessage = alertMessages.connectionError;
+      } else if (!error.message || error.message === 'Failed to fetch') {
+        errorMessage = alertMessages.networkError;
+      }
+      
+      setAlert({ 
+        type: "error", 
+        message: errorMessage 
+      });
+    } finally {
       setSubmitting(false);
     }
   };
 
   return (
     <div className="login-form-container">
+      {alert && (
+        <AlertNotification
+          type={alert.type}
+          message={alert.message}
+          onClose={() => setAlert(null)}
+        />
+      )}
+      
       <Formik
         initialValues={{ email: "", password: "" }}
         validationSchema={LoginSchema}
@@ -50,8 +98,6 @@ const LoginForm = () => {
       >
         {({ isSubmitting, errors, touched }) => (
           <Form className="login-form">
-            {loginError && <div className="form-error">{loginError}</div>}
-            
             <div className="form-group">
               <label htmlFor="email">Correo Electrónico</label>
               <Field
@@ -92,7 +138,11 @@ const LoginForm = () => {
               className="btn btn-primary btn-block"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Procesando..." : "Iniciar Sesión"}
+              {isSubmitting ? (
+                <CircularProgress size={22} style={{ color: "#fff" }} />
+              ) : (
+                "Iniciar Sesión"
+              )}
             </button>
           </Form>
         )}

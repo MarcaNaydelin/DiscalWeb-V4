@@ -1,566 +1,274 @@
-:root {
-    /* Variables de colores del tema */
-    --primary-color: #5021Ad;
-    --secondary-color: #7A55D5;
-    --accent-color: #F5A742;
-    --cyan-color: #4BD4D4;
-    --pink-color: #D05471;
-    --light-purple: #f0e6ff;
-  }
-  
-  /* ===== ESTILOS GENERALES ===== */
-  /* Contenedor principal que centra el formulario en la pantalla */
-  .child-profile-creation-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f6f4fa;
-    padding: 20px;
-  }
-  
-  /* Tarjeta central del formulario */
-  .child-profile-creation {
-    width: 100%;
-    max-width: 700px;
-    background-color: white;
-    position: relative;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(80, 33, 173, 0.1);
-    padding: 30px 25px;
-  }
-  
-  /* Indicadores de pasos (dots) */
-  .dots-container {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    display: flex;
-    gap: 8px;
-  }
-  
-  .dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: #e0e0e0;
-  }
-  
-  .dot.active {
-    background-color: var(--primary-color);
-  }
-  
-  .creation-content {
-    margin-top: 40px;
-  }
-  
-  /* Estilos de texto reutilizables */
-  h2 {
-    color: var(--primary-color);
-    text-align: center;
-    margin-bottom: 20px;
-    font-weight: 600;
-  }
-  
-  p {
-    color: #666;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  /* ===== ESTILOS DEL PASO 1: SELECCIÓN DE AVATAR ===== */
-  .avatar-carousel {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
+/* ===== ESTILOS DEL MODAL ===== */
+.child-profile-creation-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Overlay más oscuro */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
 
-  /* Estilo para la imagen del avatar en la selección */
-.avatar-image {
+.child-profile-creation-wrapper.open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease;
+}
+
+/* Contenido del modal */
+.child-profile-creation-modal-content {
+  width: 100%;
+  max-width: 700px; /* Ancho que tenías */
+  max-height: 90vh; /* Para permitir scroll si es muy alto */
+  overflow-y: auto; /* Scroll para contenido largo */
+  background-color: var(--background-card, white); /* Usar variable o fallback */
+  position: relative;
+  border-radius: var(--border-radius, 15px);
+  box-shadow: var(--shadow-lg, 0 10px 30px rgba(80, 33, 173, 0.1));
+  padding: 30px 25px;
+  animation: modal-fade-in 0.3s ease-out;
+}
+
+@keyframes modal-fade-in {
+  from { opacity: 0; transform: translateY(-20px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 15px;
+  left: 15px; /* Movido a la izquierda para no interferir con los dots */
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: var(--text-color-muted, #999);
+  cursor: pointer;
+  line-height: 1;
+  padding: 5px;
+}
+.modal-close-btn:hover {
+  color: var(--primary-color, #5021Ad);
+}
+
+/* ===== ESTILOS INTERNOS DEL FORMULARIO (MANTENIDOS Y AJUSTADOS) ===== */
+/* Indicadores de pasos (dots) */
+.dots-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #e0e0e0; /* Un gris neutro */
+}
+
+.dot.active {
+  background-color: var(--primary-color);
+}
+
+.creation-content {
+  margin-top: 40px; /* Espacio para el botón de cierre y los dots */
+}
+
+/* Estilos de texto reutilizables */
+.child-profile-creation-modal-content h2 { /* Específico para el modal */
+  color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: var(--font-size-lg);
+}
+
+.child-profile-creation-modal-content p { /* Específico para el modal */
+  color: var(--text-color-medium, #666);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* ===== ESTILOS DEL PASO 1: SELECCIÓN DE AVATAR (iguales) ===== */
+.avatar-selection-container h2 { /* Asegurar que no herede el margen superior global del modal */
+    margin-top: 0;
+}
+.avatar-carousel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.avatar-image, .profile-avatar-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
 }
-
-/* Estilo para la imagen del avatar en el resumen del perfil */
-.profile-avatar-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-/* Ajuste para asegurar que el contenedor de avatar tenga overflow hidden */
-.avatar-placeholder {
+.avatar-placeholder, .avatar-circle {
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+.avatar-nav-btn {
+  background: none; border: none; font-size: 24px; color: var(--primary-color);
+  cursor: pointer; opacity: 0.7; transition: opacity 0.3s ease;
+}
+.avatar-nav-btn:hover { opacity: 1; }
+.avatar-nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+.avatar-nav-btn.left { margin-right: 15px; }
+.avatar-nav-btn.right { margin-left: 15px; }
+.avatar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; width: calc(100% - 80px); }
+.avatar-option {
+  border: 2px solid transparent; border-radius: 10px; padding: 10px; text-align: center;
+  cursor: pointer; transition: all 0.3s ease; display: flex; flex-direction: column;
+  align-items: center; background-color: white; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+.avatar-option:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); }
+.avatar-option.selected {
+  border-color: var(--primary-color); background-color: var(--light-purple, #f0e6ff); /* Usar variable si existe */
+  transform: translateY(-3px); box-shadow: 0 5px 15px rgba(80, 33, 173, 0.2);
+}
+.avatar-option .avatar-placeholder { /* Contenedor de la imagen */
+  width: 80px;
+  height: 80px;
+  background-color: #e6e0f0; /* Un color de fondo para el placeholder */
+  border-radius: 50%;
+  margin-bottom: 10px;
+  border: 2px solid #d6d0e0; /* Borde sutil */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* Asegurar que la imagen no se desborde */
+}
+.avatar-option span { font-size: 0.8rem; color: #333; }
+.avatar-selection-controls { display: flex; justify-content: center; margin-top: 20px; }
 
-/* Ajuste para el avatar en el resumen del perfil */
+/* ===== ESTILOS DEL PASO 2: IDENTIFICACIÓN Y GRUPO DE EDAD (iguales) ===== */
+.profile-step h2 { /* Asegurar que no herede el margen superior global del modal */
+    margin-top: 0;
+}
+.identification-type-buttons, .age-group-buttons {
+  display: flex; justify-content: center; gap: 15px; margin-bottom: 20px;
+}
+.input-container { margin-bottom: 20px; }
+.input-container label {
+  display: block; margin-bottom: 8px; color: var(--text-color-medium, #555); font-weight: 500;
+}
+.input-container input { /* ESTE ES EL ESTILO QUE QUERÍAS MANTENER */
+  width: 100%; padding: 12px; border: 2px solid var(--info-color, #4BD4D4); /* Usando tu cyan como --info-color */
+  border-radius: 10px; background-color: white; outline: none;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease; font-size: 15px;
+}
+.input-container input:focus {
+  box-shadow: 0 0 0 3px rgba(80, 33, 173, 0.2); border-color: var(--primary-color);
+}
+.hint { color: #888; font-size: 0.8em; margin-top: 5px; text-align: left; }
+.age-group-section { margin: 25px 0; }
+.age-group-section label {
+  display: block; margin-bottom: 10px; color: var(--text-color-medium, #555);
+  font-weight: 500; text-align: center;
+}
+
+/* ===== ESTILOS DEL PASO 3: CONSENTIMIENTO PARENTAL (iguales) ===== */
+.consent-step { max-width: 100%; /* overflow-y: auto; ya está en el content */ padding: 0 10px; }
+.consent-step .consent-title { /* Asegurar que no herede el margen superior global del modal */
+    margin-top: 0;
+}
+.consent-header { display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+.consent-title {
+  display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
+  font-weight: 600; color: var(--primary-color); margin-bottom: 1rem;
+}
+.shield-icon { width: 20px; height: 20px; margin-right: 8px; color: var(--primary-color); }
+.info-box {
+  display: flex; background-color: #e6f7f7; /* Un color celeste claro para info */
+  border-radius: 8px; padding: 12px; margin-bottom: 1rem; border: 1px solid #cceaea;
+}
+.info-icon { width: 20px; height: 20px; margin-right: 10px; color: var(--info-color, #4BD4D4); flex-shrink: 0; }
+.info-content h3 {
+  font-size: 0.9rem; font-weight: 600; margin: 0 0 0.3rem 0;
+  color: #333; text-align: left;
+}
+.info-content p { margin: 0; color: var(--text-color-medium, #666); font-size: 0.8rem; text-align: left; line-height: 1.3; }
+.consent-details-modern { margin-bottom: 1rem; }
+.confirmation-text {
+  font-weight: 500; color: #333; margin-bottom: 0.5rem;
+  text-align: left; font-size: 0.9rem;
+}
+.consent-list { list-style-type: none; padding: 0; margin: 0 0 1rem 0; }
+.consent-list li {
+  position: relative; padding-left: 1rem; margin-bottom: 0.5rem;
+  color: var(--text-color-medium, #555); text-align: left; font-size: 0.85rem;
+}
+.consent-list li:before { content: "•"; position: absolute; left: 0; color: var(--primary-color); }
+.profile-summary {
+  display: flex; flex-direction: column; background-color: white;
+  border: 1px solid var(--info-color, #4BD4D4); border-radius: 10px;
+  padding: 15px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); margin-bottom: 1rem;
+}
+.profile-summary-header {
+  width: 100%; text-align: center; margin-bottom: 15px; color: var(--primary-color);
+  font-weight: 600; font-size: 1rem; padding-bottom: 8px; border-bottom: 1px solid #eee;
+}
+.profile-content { display: flex; align-items: flex-start; }
 .avatar-circle {
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 60px; height: 60px; border-radius: 50%; background-color: #e6e0f0;
+  border: 2px solid var(--secondary-color, #7A55D5); flex-shrink: 0; margin-right: 15px;
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
 }
-  
-  /* Botones de navegación del carrusel */
-  .avatar-nav-btn {
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: var(--primary-color);
-    cursor: pointer;
-    opacity: 0.7;
-    transition: opacity 0.3s ease;
-  }
-  
-  .avatar-nav-btn:hover {
-    opacity: 1;
-  }
-  
-  .avatar-nav-btn:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-  }
-  
-  .avatar-nav-btn.left {
-    margin-right: 15px;
-  }
-  
-  .avatar-nav-btn.right {
-    margin-left: 15px;
-  }
-  
-  /* Grid de opciones de avatar */
-  .avatar-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-    width: calc(100% - 80px);
-  }
-  
-  .avatar-option {
-    border: 2px solid transparent;
-    border-radius: 10px;
-    padding: 10px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: white;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-  }
-  
-  .avatar-option:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  }
-  
-  .avatar-option.selected {
-    border-color: var(--primary-color);
-    background-color: var(--light-purple);
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(80, 33, 173, 0.2);
-  }
-  
-  /*.avatar-placeholder {
-    width: 80px;
-    height: 80px;
-    background-color: #e6e0f0;
-    border-radius: 50%;
-    margin-bottom: 10px;
-    border: 2px solid #d6d0e0;
-  }*/
-  
-  .avatar-option span {
-    font-size: 0.8rem;
-    color: #333;
-  }
-  
-  .avatar-selection-controls {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
-  
-  /* ===== ESTILOS DEL PASO 2: IDENTIFICACIÓN Y GRUPO DE EDAD ===== */
-  /* Botones de opciones para identificación y edad */
-  .identification-type-buttons, .age-group-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 20px;
-  }
-  
-  /* Contenedor de inputs */
-  .input-container {
-    margin-bottom: 20px;
-  }
-  
-  .input-container label {
-    display: block;
-    margin-bottom: 8px;
-    color: #555;
-    font-weight: 500;
-  }
-  
-  .input-container input {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid var(--cyan-color);
-    border-radius: 10px;
-    background-color: white;
-    outline: none;
-    transition: box-shadow 0.3s ease;
-    font-size: 15px;
-  }
-  
-  .input-container input:focus {
-    box-shadow: 0 0 0 3px rgba(80, 33, 173, 0.2);
-    border-color: var(--primary-color);
-  }
-  
-  .hint {
-    color: #888;
-    font-size: 0.8em;
-    margin-top: 5px;
-    text-align: left;
-  }
-  
-  .age-group-section {
-    margin: 25px 0;
-  }
-  
-  .age-group-section label {
-    display: block;
-    margin-bottom: 10px;
-    color: #555;
-    font-weight: 500;
-    text-align: center;
-  }
-  
-  /* ===== ESTILOS DEL PASO 3: CONSENTIMIENTO PARENTAL ===== */
-  .consent-step {
-    max-width: 100%;
-    overflow-y: auto;
-    padding: 0 10px;
-  }
-  
-  /* Encabezado de la sección de consentimiento */
-  .consent-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-  }
-  
-  .consent-title {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--primary-color);
-    margin-bottom: 1rem;
-  }
-  
-  .shield-icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 8px;
-    color: var(--primary-color);
-  }
-  
-  /* Caja de información */
-  .info-box {
-    display: flex;
-    background-color: #e6f7f7;
-    border-radius: 8px;
-    padding: 12px;
-    margin-bottom: 1rem;
-    border: 1px solid #cceaea;
-  }
-  
-  .info-icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-    color: var(--cyan-color);
-    flex-shrink: 0;
-  }
-  
-  .info-content h3 {
-    font-size: 0.9rem;
-    font-weight: 600;
-    margin: 0 0 0.3rem 0;
-    color: #333;
-    text-align: left;
-  }
-  
-  .info-content p {
-    margin: 0;
-    color: #666;
-    font-size: 0.8rem;
-    text-align: left;
-    line-height: 1.3;
-  }
-  
-  /* Detalles del consentimiento */
-  .consent-details-modern {
-    margin-bottom: 1rem;
-  }
-  
-  .confirmation-text {
-    font-weight: 500;
-    color: #333;
-    margin-bottom: 0.5rem;
-    text-align: left;
-    font-size: 0.9rem;
-  }
-  
-  .consent-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0 0 1rem 0;
-  }
-  
-  .consent-list li {
-    position: relative;
-    padding-left: 1rem;
-    margin-bottom: 0.5rem;
-    color: #555;
-    text-align: left;
-    font-size: 0.85rem;
-  }
-  
-  .consent-list li:before {
-    content: "•";
-    position: absolute;
-    left: 0;
-    color: var(--primary-color);
-  }
-  
-  /* Resumen del perfil creado */
-  .profile-summary {
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    border: 1px solid var(--cyan-color);
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    margin-bottom: 1rem;
-  }
-  
-  .profile-summary-header {
-    width: 100%;
-    text-align: center;
-    margin-bottom: 15px;
-    color: var(--primary-color);
-    font-weight: 600;
-    font-size: 1rem;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #eee;
-  }
-  
-  .profile-content {
-    display: flex;
-    align-items: flex-start;
-  }
-  
-  .avatar-circle {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background-color: #e6e0f0;
-    border: 2px solid var(--secondary-color);
-    flex-shrink: 0;
-    margin-right: 15px;
-  }
-  
-  .summary-details {
-    flex: 1;
-  }
-  
-  .summary-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px 15px;
-  }
-  
-  .summary-grid p {
-    text-align: left;
-    margin: 0;
-    color: #333;
-    font-size: 0.85rem;
-    padding: 3px 0;
-  }
-  
-  /* Checkbox de consentimiento */
-  .consent-checkbox-container {
-    background-color: #f5f5fa;
-    border-radius: 8px;
-    padding: 10px;
-    margin-bottom: 1rem;
-  }
-  
-  .consent-checkbox-modern {
-    display: flex;
-    align-items: flex-start;
-    cursor: pointer;
-  }
-  
-  .consent-checkbox-modern input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-  }
-  
-  .checkbox-custom {
-    height: 20px;
-    width: 20px;
-    background-color: white;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    margin-right: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  
-  .checkbox-custom svg {
-    width: 14px;
-    height: 14px;
-    opacity: 0;
-    color: white;
-  }
-  
-  .consent-checkbox-modern input:checked ~ .checkbox-custom {
-    background-color: var(--pink-color);
-    border-color: var(--pink-color);
-  }
-  
-  .consent-checkbox-modern input:checked ~ .checkbox-custom svg {
-    opacity: 1;
-  }
-  
-  .checkbox-text {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .checkbox-title {
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 0.25rem;
-    font-size: 0.85rem;
-  }
-  
-  .checkbox-description {
-    font-size: 0.75rem;
-    color: #666;
-    line-height: 1.3;
-  }
-  
-  /* Layout para sección de consentimiento */
-  .consent-layout {
-    display: block;
-  }
-  
-  .consent-main {
-    width: 100%;
-    margin-bottom: 20px;
-  }
-  
-  /* Navegación entre pasos */
-  .creation-navigation {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-  }
-  
-  /* ===== RESPONSIVE DESIGN ===== */
-  /* Para tablets y dispositivos medianos */
-  @media (max-width: 650px) {
-    .consent-layout {
-      flex-direction: column;
-    }
-    
-    .profile-summary {
-      flex-direction: row;
-      align-items: center;
-      gap: 15px;
-    }
-    
-    .avatar-circle {
-      margin-bottom: 0;
-    }
-    
-    .child-profile-creation {
-      max-width: 500px;
-    }
-  }
-  
-  /* Para móviles y dispositivos pequeños */
-  @media (max-width: 480px) {
-    .identification-type-buttons, .age-group-buttons {
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    .avatar-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .creation-navigation {
-      flex-direction: column;
-      gap: 15px;
-    }
-    
-    .creation-navigation button {
-      width: 100%;
-    }
-    
-    .profile-summary {
-      flex-direction: column;
-    }
-    
-    .avatar-circle {
-      margin-bottom: 10px;
-    }
-  }
-  
-  /* Para dispositivos muy pequeños */
-  @media (max-width: 380px) {
-    .consent-title {
-      font-size: 1.1rem;
-    }
-    
-    .profile-summary {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 10px;
-    }
-    
-    .summary-details p {
-      text-align: center;
-    }
-    
-    .avatar-circle {
-      margin-bottom: 5px;
-    }
-    
-    .summary-grid {
-      grid-template-columns: 1fr;
-    }
-  }
+.summary-details { flex: 1; }
+.summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 15px; }
+.summary-grid p { text-align: left; margin: 0; color: #333; font-size: 0.85rem; padding: 3px 0; }
+.consent-checkbox-container {
+  background-color: #f5f5fa; border-radius: 8px; padding: 10px; margin-bottom: 1rem;
+}
+.consent-checkbox-modern { display: flex; align-items: flex-start; cursor: pointer; }
+.consent-checkbox-modern input { position: absolute; opacity: 0; cursor: pointer; }
+.checkbox-custom {
+  height: 20px; width: 20px; background-color: white; border: 2px solid #ccc;
+  border-radius: 4px; margin-right: 10px; display: flex; align-items: center;
+  justify-content: center; flex-shrink: 0;
+}
+.checkbox-custom svg { width: 14px; height: 14px; opacity: 0; color: white; }
+.consent-checkbox-modern input:checked ~ .checkbox-custom {
+  background-color: var(--warning-color, #D05471); /* Usando tu pink como --warning-color */
+  border-color: var(--warning-color, #D05471);
+}
+.consent-checkbox-modern input:checked ~ .checkbox-custom svg { opacity: 1; }
+.checkbox-text { display: flex; flex-direction: column; }
+.checkbox-title {
+  font-weight: 600; color: #333; margin-bottom: 0.25rem; font-size: 0.85rem;
+}
+.checkbox-description { font-size: 0.75rem; color: var(--text-color-medium, #666); line-height: 1.3; }
+.consent-layout { display: block; }
+.consent-main { width: 100%; margin-bottom: 20px; }
+.creation-navigation { display: flex; justify-content: space-between; margin-top: 30px; }
+
+/* ===== RESPONSIVE DESIGN (iguales) ===== */
+@media (max-width: 650px) {
+  .child-profile-creation-modal-content { max-width: 90%; padding: 20px 15px; }
+  .consent-layout { flex-direction: column; }
+  .profile-summary { flex-direction: row; align-items: center; gap: 15px; }
+  .avatar-circle { margin-bottom: 0; }
+}
+@media (max-width: 480px) {
+  .avatar-grid { grid-template-columns: repeat(2, 1fr); width: calc(100% - 60px); }
+  .avatar-nav-btn.left { margin-right: 10px; }
+  .avatar-nav-btn.right { margin-left: 10px; }
+  .identification-type-buttons, .age-group-buttons { flex-direction: column; align-items: stretch; gap: 10px; }
+  .identification-type-buttons .btn, .age-group-buttons .btn { width: 100%; }
+  .creation-navigation { flex-direction: column; gap: 15px; }
+  .creation-navigation button { width: 100%; }
+  .profile-summary { flex-direction: column; }
+  .avatar-circle { margin-bottom: 10px; }
+  .summary-grid { grid-template-columns: 1fr; }
+}

@@ -7,13 +7,13 @@ import "./styles/globals.css";
 // Componentes
 import Nav from "./components/layout/Nav";
 import Footer from "./components/layout/Footer";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 // Páginas
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
-import ChildProfileCreation from "./components/dashboard/ChildProfileCreation";
 
 const MainLayout = ({ children, includeNav = true, includeFooter = true }) => (
   <>
@@ -22,16 +22,6 @@ const MainLayout = ({ children, includeNav = true, includeFooter = true }) => (
     {includeFooter && <Footer />}
   </>
 );
-
-const ProtectedRoute = ({ children }) => {
-  const isLoggedIn = localStorage.getItem("isLoggedIn");
-
-  if (!isLoggedIn) {
-    return <Navigate to="/login" replace />;
-  }
-
-  return children;
-};
 
 function App() {
   // Función para animar elementos al hacer scroll
@@ -63,36 +53,13 @@ function App() {
       <div className="App">
         <main>
           <Routes>
-            <Route path="/"  element={
-                <MainLayout includeFooter={true}>
-                  <Home />
-                </MainLayout>
-              }
-            />
-            <Route  path="/login"  element={
-                <MainLayout includeNav={false} includeFooter={false}>
-                  <Login />
-                </MainLayout>
-              }
-            />
-            <Route path="/register" element={
-                <MainLayout includeNav={false} includeFooter={false}>
-                  <Register />
-                </MainLayout>
-              }
-            />
+            <Route path="/" element={<MainLayout><Home /></MainLayout>} />
+            <Route path="/login" element={<MainLayout includeNav={false} includeFooter={false}><Login /></MainLayout>} />
+            <Route path="/register" element={<MainLayout includeNav={false} includeFooter={false}><Register /></MainLayout>} />
             <Route path="/dashboard" element={
                 <ProtectedRoute>
                   <MainLayout includeNav={false} includeFooter={false}>
                     <Dashboard />
-                  </MainLayout>
-                </ProtectedRoute>
-              }
-            />
-            <Route path="/create-child-profile" element={
-                <ProtectedRoute>
-                  <MainLayout includeNav={false} includeFooter={false}>
-                    <ChildProfileCreation />
                   </MainLayout>
                 </ProtectedRoute>
               }
