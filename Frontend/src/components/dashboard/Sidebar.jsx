@@ -3,10 +3,10 @@ import {
   FaHome, FaUserFriends, FaChartBar, FaClock, FaFileAlt, FaCog,
   FaSignOutAlt, FaChevronLeft, FaCalendarAlt, FaListAlt, FaCalendar, 
   FaBalanceScale, FaChevronDown, FaChevronRight, FaTasks, FaHistory,
-  FaChartLine, FaBars, FaTimes
+  FaChartLine, FaBars, FaTimes, FaClipboardList
 } from 'react-icons/fa';
-import './Sidebar.css'; // Asegúrate que la ruta a Sidebar.css es correcta
-import Logo from '../../assets/images/logopanelp.png'; // Asegúrate que la ruta al logo es correcta
+import './Sidebar.css';
+import Logo from '../../assets/images/logopanelp.png';
 
 const Sidebar = ({ activeSection, setActiveSection, onLogout, onCollapseToggle }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -14,22 +14,26 @@ const Sidebar = ({ activeSection, setActiveSection, onLogout, onCollapseToggle }
   const [isMobile, setIsMobile] = useState(false);
   const [expandedMenus, setExpandedMenus] = useState(new Set());
 
+  // Obtener el nombre del usuario desde localStorage
+  const storedUser = localStorage.getItem("user");
+  const user = storedUser ? JSON.parse(storedUser) : null;
+  const userName = user?.name || "Usuario";
+
   const menuItems = [
     { id: 'overview', icon: <FaHome />, label: 'Inicio' },
     { id: 'child-profiles', icon: <FaUserFriends />, label: 'Perfiles' },
     {
-      id: 'skill-tracking',
+      id: 'progress',
       icon: <FaChartBar />,
       label: 'Progreso',
       subItems: [
-        { id: 'progress-overview', label: 'Resumen', icon: <FaChartLine /> },
-        { id: 'progress-by-skill', label: 'Por habilidad', icon: <FaTasks /> },
-        { id: 'progress-timeline', label: 'Cronograma', icon: <FaClock /> }
+        { id: 'progress-summary', label: 'Resumen', icon: <FaClipboardList /> },
+        { id: 'progress-by-skill', label: 'Por Habilidad', icon: <FaTasks /> },
       ]
     },
     {
       id: 'recent-activities',
-      icon: <FaHistory />, // Cambiado a FaHistory para diferenciar de Progreso
+      icon: <FaHistory />,
       label: 'Actividades',
       subItems: [
         { id: 'today-activities', label: 'Hoy', icon: <FaClock /> },
@@ -53,64 +57,56 @@ const Sidebar = ({ activeSection, setActiveSection, onLogout, onCollapseToggle }
     const checkMobile = () => {
       const mobile = window.innerWidth <= 768;
       setIsMobile(mobile);
-      if (!mobile && isMobileOpen) {
-        setIsMobileOpen(false); // Cierra el menú móvil si se redimensiona a desktop
-      }
-      if (!mobile && isCollapsed) {
-      }
+      if (!mobile && isMobileOpen) setIsMobileOpen(false);
     };
-
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
-  }, [isMobileOpen, isCollapsed, onCollapseToggle]); // Añadir onCollapseToggle a dependencias
+  }, [isMobileOpen]);
 
   useEffect(() => {
+    let parentToExpand = null;
     menuItems.forEach(item => {
-      if (item.subItems) {
-        const hasActiveSubItem = item.subItems.some(sub => sub.id === activeSection);
-        if (hasActiveSubItem && !isCollapsed) { // Solo auto-expande si no está colapsado
-          setExpandedMenus(prev => new Set(prev).add(item.id));
-        }
+      if (item.subItems && item.subItems.some(sub => sub.id === activeSection)) {
+        parentToExpand = item.id;
       }
     });
-  }, [activeSection, isCollapsed]); // Añadir isCollapsed
+    if (parentToExpand && !isCollapsed) {
+      setExpandedMenus(prev => new Set(prev).add(parentToExpand));
+    } else if (isCollapsed) {
+      setExpandedMenus(new Set());
+    }
+  }, [activeSection, isCollapsed]);
 
   const handleCollapse = () => {
-    if (isMobile) return; // En móvil, el colapso se maneja con el toggle de apertura/cierre
+    if (isMobile) return;
     const newCollapsedState = !isCollapsed;
     setIsCollapsed(newCollapsedState);
-    if (onCollapseToggle) {
-      onCollapseToggle(newCollapsedState);
-    }
-    if (newCollapsedState) { // Si se está colapsando
-      setExpandedMenus(new Set()); // Cierra todos los submenús
-    }
+    if (onCollapseToggle) onCollapseToggle(newCollapsedState);
+    if (newCollapsedState) setExpandedMenus(new Set());
   };
 
-  const toggleMobileMenu = () => {
-    setIsMobileOpen(!isMobileOpen);
-  };
+  const toggleMobileMenu = () => setIsMobileOpen(!isMobileOpen);
+  const handleOverlayClick = () => { if (isMobileOpen) setIsMobileOpen(false); };
 
-  const handleMenuClick = (itemId, hasSubItems = false) => {
-    if (hasSubItems && !isCollapsed) { // Solo gestiona expansión de submenú si no está colapsado
-      setExpandedMenus(prev => {
-        const newSet = new Set(prev);
-        if (newSet.has(itemId)) {
-          newSet.delete(itemId);
-        } else {
-          newSet.add(itemId);
-        }
-        return newSet;
-      });
+  const handleMenuClick = (item) => {
+    if (item.subItems && item.subItems.length > 0) {
       if (!isCollapsed) {
-        if (expandedMenus.has(itemId)) return;
+        setExpandedMenus(prev => {
+          const newSet = new Set(prev);
+          if (newSet.has(item.id)) {
+            newSet.delete(item.id);
+          } else {
+            newSet.add(item.id);
+          }
+          return newSet;
+        });
       }
+    } else {
+      setActiveSection(item.id);
     }
-    
-    setActiveSection(itemId);
-    
-    if (isMobile) {
+
+    if (isMobile && (!item.subItems || item.subItems.length === 0)) {
       setIsMobileOpen(false);
     }
   };
@@ -122,22 +118,8 @@ const Sidebar = ({ activeSection, setActiveSection, onLogout, onCollapseToggle }
     }
   };
 
-  const handleOverlayClick = () => {
-    if (isMobileOpen) {
-      setIsMobileOpen(false);
-    }
-  };
-  
-  const isMenuExpanded = (menuId) => {
-    return expandedMenus.has(menuId) && !isCollapsed;
-  };
-
-  const isActiveParent = (item) => {
-    if (item.subItems) {
-      return item.subItems.some(sub => sub.id === activeSection);
-    }
-    return false;
-  };
+  const isMenuExpanded = (menuId) => expandedMenus.has(menuId) && !isCollapsed;
+  const isActiveParent = (item) => item.subItems && item.subItems.some(sub => sub.id === activeSection);
 
   return (
     <>
@@ -151,26 +133,22 @@ const Sidebar = ({ activeSection, setActiveSection, onLogout, onCollapseToggle }
           {isMobileOpen ? <FaTimes /> : <FaBars />}
         </button>
       )}
-
       <div
         className={`sidebar-overlay ${isMobileOpen ? 'active' : ''}`}
         onClick={handleOverlayClick}
         aria-hidden={!isMobileOpen}
       />
-
       <aside className={`parent-sidebar ${isCollapsed && !isMobile ? 'collapsed' : ''} ${isMobileOpen ? 'mobile-open' : ''}`}>
         <div className="sidebar-header">
           <div className="sidebar-logo">
             <img src={Logo} alt="DiscalWeb Logo" className="logo" />
             {(!isCollapsed || isMobileOpen) && <h2 className="logo-text">DiscalWeb</h2>}
           </div>
-
           {!isMobile && (
             <button
               className={`collapse-btn ${isCollapsed ? 'collapsed' : ''}`}
               onClick={handleCollapse}
               title={isCollapsed ? 'Expandir' : 'Contraer'}
-              aria-label={isCollapsed ? 'Expandir sidebar' : 'Contraer sidebar'}
             >
               <FaChevronLeft />
             </button>
@@ -182,18 +160,17 @@ const Sidebar = ({ activeSection, setActiveSection, onLogout, onCollapseToggle }
             const hasSubItems = item.subItems && item.subItems.length > 0;
             const isExpanded = isMenuExpanded(item.id);
             const parentActive = isActiveParent(item);
-            const directActive = activeSection === item.id;
+            const directActive = activeSection === item.id && !hasSubItems;
 
             return (
               <div key={item.id} className="menu-block">
                 <button
                   className={`sidebar-menu-item ${
-                    (directActive && !hasSubItems) || (parentActive && !isCollapsed) || (directActive && isCollapsed && hasSubItems) ? 'active' : ''
+                    directActive || (parentActive && !isCollapsed) ? 'active' : ''
                   } ${hasSubItems ? 'has-submenu' : ''}`}
-                  onClick={() => handleMenuClick(item.id, hasSubItems)}
+                  onClick={() => handleMenuClick(item)}
                   title={isCollapsed && !isMobileOpen ? item.label : ''}
                   aria-expanded={hasSubItems ? isExpanded : undefined}
-                  aria-haspopup={hasSubItems ? 'menu' : undefined}
                 >
                   <span className="menu-icon">{item.icon}</span>
                   {(!isCollapsed || isMobileOpen) && (
@@ -213,12 +190,10 @@ const Sidebar = ({ activeSection, setActiveSection, onLogout, onCollapseToggle }
                     {item.subItems.map(sub => (
                       <button
                         key={sub.id}
-                        className={`sidebar-submenu-item ${
-                          activeSection === sub.id ? 'active' : ''
-                        }`}
+                        className={`sidebar-submenu-item ${activeSection === sub.id ? 'active' : ''}`}
                         onClick={() => handleSubMenuClick(sub.id)}
-                        title={isCollapsed && !isMobileOpen ? sub.label : ''} // No debería mostrarse si el padre no está colapsado
                         role="menuitem"
+                        title={isCollapsed && !isMobileOpen ? sub.label : ''}
                       >
                         <span className="submenu-icon">{sub.icon}</span>
                         <span className="submenu-label">{sub.label}</span>
@@ -232,11 +207,13 @@ const Sidebar = ({ activeSection, setActiveSection, onLogout, onCollapseToggle }
         </nav>
 
         <div className="sidebar-footer">
-          <div className="user-profile" role="button" tabIndex="0" title={isCollapsed && !isMobileOpen ? "Perfil de Juan Pérez" : ""}>
-            <div className="user-avatar" aria-hidden="true">JP</div>
+          <div className="user-profile" role="button" tabIndex="0" title={isCollapsed && !isMobileOpen ? `Perfil de ${userName}` : ""}>
+            <div className="user-avatar" aria-hidden="true">
+              {userName.slice(0, 2).toUpperCase()}
+            </div>
             {(!isCollapsed || isMobileOpen) && (
               <div className="user-info">
-                <h4>Juan Pérez</h4>
+                <h4>{userName}</h4>
                 <p>Padre/Madre</p>
               </div>
             )}
@@ -245,7 +222,7 @@ const Sidebar = ({ activeSection, setActiveSection, onLogout, onCollapseToggle }
           <button 
             className="logout-btn" 
             onClick={onLogout}
-            title={isCollapsed && !isMobileOpen ? "Cerrar Sesión" : "Cerrar Sesión"}
+            title="Cerrar Sesión"
           >
             <FaSignOutAlt className="logout-icon" />
             {(!isCollapsed || isMobileOpen) && <span>Cerrar Sesión</span>}
