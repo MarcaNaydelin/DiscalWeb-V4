@@ -5,13 +5,17 @@ import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/dashboard/Sidebar";
 import Overview from "../components/dashboard/Overview";
 import ChildProfiles from "../components/dashboard/ChildProfiles";
-import SkillTracking from "../components/dashboard/SkillTracking";
 import RecentActivities from "../components/dashboard/RecentActivities";
-import Reports from "../components/dashboard/Reports";
 import ChildProfileCreation from "../components/dashboard/ChildProfileCreation";
 import AlertNotification from "../components/ui/AlertNotification";
 
-import "./Dashboard.css"; // Este es el CSS para el layout principal del Dashboard
+// Progreso
+import ProgressSummary from '../components/dashboard/progress/ProgressSummary';
+import ProgressBySkill from '../components/dashboard/progress/ProgressBySkill';
+import MonthlyReport from '../components/dashboard/reports/MonthlyReport';
+import CompareReport from '../components/dashboard/reports/CompareReport';
+
+import "./Dashboard.css";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -33,25 +37,40 @@ const Dashboard = () => {
 
   const handleAddChildClick = () => setIsProfileModalOpen(true);
   const handleProfileCreated = (newProfile) => setChildren(prev => [...prev, newProfile]);
-
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
     navigate("/login");
   };
 
   const renderSection = () => {
+    console.log("Current activeSection:", activeSection);
     switch(activeSection) {
       case 'overview':
         return <Overview children={children} onAddChild={handleAddChildClick} />;
       case 'child-profiles':
         return <ChildProfiles children={children} onAddChild={handleAddChildClick} />;
-      case 'skill-tracking':
-        return <SkillTracking children={children} />;
+      case 'progress-summary':
+        return <ProgressSummary childrenData={children} />;
+      case 'progress-by-skill':
+        return <ProgressBySkill childrenData={children} />;
+
+      // Submenús de Actividades
       case 'recent-activities':
+      case 'today-activities':
+      case 'week-activities':
+      case 'all-activities':
         return <RecentActivities children={children} />;
-      case 'reports':
-        return <Reports children={children} />;
+
+      // Secciones de Reportes
+      case 'monthly-report': // ID del submenú
+        return <MonthlyReport childrenData={children} />;
+      case 'compare-report': // ID del submenú
+        return <CompareReport childrenData={children} />;
+      
+      // case 'settings': // Si tienes esta sección
+      //   return <SettingsComponent />; 
       default:
+        console.warn("Unhandled activeSection:", activeSection, "defaulting to Overview.");
         return <Overview children={children} onAddChild={handleAddChildClick} />;
     }
   };
@@ -62,7 +81,7 @@ const Dashboard = () => {
         activeSection={activeSection}
         setActiveSection={setActiveSection}
         onLogout={handleLogout}
-        onCollapseToggle={setIsSidebarActuallyCollapsed} // <--- Pasar la función de callback
+        onCollapseToggle={setIsSidebarActuallyCollapsed}
       />
       <div className="dashboard-content">
         {renderSection()}
